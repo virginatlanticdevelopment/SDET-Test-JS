@@ -1,0 +1,23 @@
+{
+  "name": "sdet-test-js",
+  "version": "1.0.0",
+  "description": "Tech test for Virgin",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vvedachalam/SDET-Test-JS.git"
+  },
+  "keywords": [
+    "webdriverJS",
+    "cucumberJS"
+  ],
+  "author": "Vijay Vedahcalam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vvedachalam/SDET-Test-JS/issues"
+  },
+  "homepage": "https://github.com/vvedachalam/SDET-Test-JS#readme"
+}
