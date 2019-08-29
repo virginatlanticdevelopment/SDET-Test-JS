@@ -4,7 +4,7 @@
   "description": "Tech test for Virgin",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "./node_modules/.bin/cucumber-js -f node_modules/cucumber-pretty"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,22 @@
   },
   "homepage": "https://github.com/vvedachalam/SDET-Test-JS#readme",
   "devDependencies": {
+    "@types/chai-as-promised": "^7.1.2",
+    "@types/selenium-webdriver": "^4.0.2",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "selenium-webdriver": "^3.6.0",
     "tslint": "^5.19.0",
     "typescript": "^3.6.2"
+  },
+  "dependencies": {
+    "@types/chai": "^4.2.0",
+    "@types/core-js": "^2.5.2",
+    "@types/cucumber": "^4.0.7",
+    "@types/node": "^12.7.2",
+    "chromedriver": "^76.0.1",
+    "cucumber": "^5.1.0",
+    "cucumber-pretty": "^1.5.2",
+    "node-cmd": "^3.0.0"
   }
 }
