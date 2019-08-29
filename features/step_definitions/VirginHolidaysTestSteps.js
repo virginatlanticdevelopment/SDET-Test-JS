@@ -38,18 +38,24 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var chai_1 = require("chai");
 var cucumber_1 = require("cucumber");
-var selenium_webdriver_1 = require("selenium-webdriver");
+var basePage_1 = require("../pages/basePage");
+var holidaySearchLandingPage_1 = require("../pages/holidaySearchLandingPage");
+var homePage_1 = require("../pages/homePage");
+var hotListPage_1 = require("../pages/hotListPage");
+var basepage = new basePage_1.BasePage();
+var holidaysearchlandingpage = new holidaySearchLandingPage_1.HolidaySearchLandingPage();
+var homepage = new homePage_1.HomePage();
+var hotlistpage = new hotListPage_1.HotListPage();
 var selectedHolidayName;
 var displayedHolidayName;
-var driver = new selenium_webdriver_1.Builder().forBrowser("chrome").build();
 cucumber_1.setDefaultTimeout(40000);
 cucumber_1.Given(/^I am on virgin holidays home page$/, function () { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4, driver.get("https://www.virginholidays.co.uk/")];
+            case 0: return [4, homepage.goToHomeURL()];
             case 1:
                 _a.sent();
-                return [4, driver.manage().window().setSize(1600, 900)];
+                return [4, basepage.resizeBrowser(1600, 900)];
             case 2:
                 _a.sent();
                 return [2];
@@ -59,14 +65,13 @@ cucumber_1.Given(/^I am on virgin holidays home page$/, function () { return __a
 cucumber_1.Given(/^I do a holiday search$/, function () { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4, driver.findElement(selenium_webdriver_1.By.css("#search-panel > div > div > div.sp-tab.sp-selected > form > div.sp-container > div.sp-submit-container > button"))
-                    .click()];
+            case 0: return [4, homepage.getSubmitButton().click()];
             case 1:
                 _a.sent();
-                return [4, driver.wait(selenium_webdriver_1.until.elementLocated(selenium_webdriver_1.By.css("#app-header")), 25000)];
+                return [4, homepage.isSearchHeaderLocated()];
             case 2:
                 _a.sent();
-                return [4, driver.executeScript("window.scrollTo(0,600)")];
+                return [4, basepage.scrollDown()];
             case 3:
                 _a.sent();
                 return [2];
@@ -76,19 +81,17 @@ cucumber_1.Given(/^I do a holiday search$/, function () { return __awaiter(_this
 cucumber_1.When(/^I add a holiday to a hotlist$/, function () { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4, driver.wait(selenium_webdriver_1.until.elementLocated(selenium_webdriver_1.By
-                    .css("#search-results > article:nth-child(1) > div.card-content > div.card-action > div.vhols-hotlist > a > span.hbc-add-content")), 20000)];
+            case 0: return [4, holidaysearchlandingpage.isFirstHolidayItemVisible()];
             case 1:
                 _a.sent();
-                return [4, driver.findElement(selenium_webdriver_1.By.css("#search-results > article:nth-child(1) > div.card-content > div.card-detail > header > h2")).getText()];
+                return [4, holidaysearchlandingpage.getFirstHolidayItemHeading()];
             case 2:
                 selectedHolidayName = _a.sent();
                 console.log("Selected holiday ==> ", selectedHolidayName);
-                return [4, driver.findElement(selenium_webdriver_1.By.css("#search-results > article:nth-child(1) > div.card-content > div.card-action > div.vhols-hotlist > a ")).click()];
+                return [4, holidaysearchlandingpage.getFirstHolidayItemAddToHotlistLink().click()];
             case 3:
                 _a.sent();
-                return [4, driver.wait(selenium_webdriver_1.until.elementIsVisible(driver.findElement(selenium_webdriver_1.By
-                        .css("#search-results > article:nth-child(1) > div.card-content > div.card-action > div.vhols-hotlist > a > span.hbc-remove-content-md"))), 20000)];
+                return [4, holidaysearchlandingpage.isFirstHolidayItemRemoveHotlistLinkVisible()];
             case 4:
                 _a.sent();
                 return [2];
@@ -99,22 +102,20 @@ cucumber_1.Then(/^I can see that the holiday added to the hotlist on top of the 
     var _a, _b;
     return __generator(this, function (_c) {
         switch (_c.label) {
-            case 0: return [4, driver.findElement(selenium_webdriver_1.By.css("li.mvhtr-entry.mvhtr-hotlist > a ")).click()];
+            case 0: return [4, holidaysearchlandingpage.getHotListLiink().click()];
             case 1:
                 _c.sent();
-                return [4, driver.wait(selenium_webdriver_1.until.titleContains("Hotlist"))];
-            case 2:
-                _c.sent();
-                return [4, driver.findElement(selenium_webdriver_1.By.css("section > div:nth-child(1) > div > div.card-block > h4"))
-                        .getText()];
-            case 3:
-                displayedHolidayName = _c.sent();
-                console.log("Displayed holiday ==> ", displayedHolidayName);
-                chai_1.assert.equal(selectedHolidayName, displayedHolidayName, "Holiday is not included");
                 _b = (_a = chai_1.assert).isTrue;
-                return [4, driver.wait(selenium_webdriver_1.until.titleContains("Hotlist"), 10000)];
-            case 4:
+                return [4, basepage.waitForPageTitle("Hotlist")];
+            case 2:
                 _b.apply(_a, [_c.sent()]);
+                return [4, hotlistpage.isFirstHolidayItemVisible()];
+            case 3:
+                _c.sent();
+                return [4, hotlistpage.getFirstHolidayItemHeading()];
+            case 4:
+                displayedHolidayName = _c.sent();
+                chai_1.assert.equal(selectedHolidayName, displayedHolidayName, "Holiday is not included");
                 return [2];
         }
     });
