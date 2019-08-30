@@ -41,13 +41,19 @@ var cucumber_1 = require("cucumber");
 var basePage_1 = require("../pages/basePage");
 var holidaySearchLandingPage_1 = require("../pages/holidaySearchLandingPage");
 var homePage_1 = require("../pages/homePage");
+var hotelListPage_1 = require("../pages/hotelListPage");
+var hotelSearchLandingPage_1 = require("../pages/hotelSearchLandingPage");
 var hotListPage_1 = require("../pages/hotListPage");
 var basepage = new basePage_1.BasePage();
 var holidaysearchlandingpage = new holidaySearchLandingPage_1.HolidaySearchLandingPage();
 var homepage = new homePage_1.HomePage();
+var hotellistpage = new hotelListPage_1.HotelListPage();
+var hotelsearchlandingpage = new hotelSearchLandingPage_1.HotelSearchLandingPage();
 var hotlistpage = new hotListPage_1.HotListPage();
 var selectedHolidayName;
 var displayedHolidayName;
+var selectedHotelName;
+var displayedHolelName;
 cucumber_1.setDefaultTimeout(40000);
 cucumber_1.Given(/^I am on virgin holidays home page$/, function () { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
@@ -78,6 +84,25 @@ cucumber_1.Given(/^I do a holiday search$/, function () { return __awaiter(_this
         }
     });
 }); });
+cucumber_1.Given(/^I do a hotel search$/, function () { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4, homepage.getHotelTab().click()];
+            case 1:
+                _a.sent();
+                return [4, homepage.getSubmitButton().click()];
+            case 2:
+                _a.sent();
+                return [4, homepage.isSearchHeaderLocated()];
+            case 3:
+                _a.sent();
+                return [4, basepage.scrollDown()];
+            case 4:
+                _a.sent();
+                return [2];
+        }
+    });
+}); });
 cucumber_1.When(/^I add a holiday to a hotlist$/, function () { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -87,7 +112,7 @@ cucumber_1.When(/^I add a holiday to a hotlist$/, function () { return __awaiter
                 return [4, holidaysearchlandingpage.getFirstHolidayItemHeading()];
             case 2:
                 selectedHolidayName = _a.sent();
-                console.log("Selected holiday ==> ", selectedHolidayName);
+                console.log("Selected holiday ==> ", selectedHotelName);
                 return [4, holidaysearchlandingpage.getFirstHolidayItemAddToHotlistLink().click()];
             case 3:
                 _a.sent();
@@ -116,6 +141,38 @@ cucumber_1.Then(/^I can see that the holiday added to the hotlist on top of the 
             case 4:
                 displayedHolidayName = _c.sent();
                 chai_1.assert.equal(selectedHolidayName, displayedHolidayName, "Holiday is not included");
+                return [2];
+        }
+    });
+}); });
+cucumber_1.When(/^I proceed to the first hotel options page$/, function () { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4, hotelsearchlandingpage.isFirstHotelItemVisible()];
+            case 1:
+                _a.sent();
+                return [4, hotelsearchlandingpage.getFirstHolidayItemHeading()];
+            case 2:
+                selectedHotelName = _a.sent();
+                console.log("Selected hotel ==> ", selectedHotelName);
+                return [4, hotelsearchlandingpage.getFirstHotelItemContinueButton().click()];
+            case 3:
+                _a.sent();
+                return [2];
+        }
+    });
+}); });
+cucumber_1.Then(/^I can see my board basis$/, function () { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4, hotellistpage.isFirstHotelItemVisible()];
+            case 1:
+                _a.sent();
+                return [4, hotellistpage.getFirstHolidayItemHeading()];
+            case 2:
+                displayedHolelName = _a.sent();
+                chai_1.assert.equal(selectedHotelName, displayedHolelName, "Hotel is not included");
+                basepage.closeBrowser();
                 return [2];
         }
     });

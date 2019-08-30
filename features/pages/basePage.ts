@@ -1,6 +1,5 @@
 import {Builder, By ,  Key , until } from "selenium-webdriver";
-
-const driver = new Builder().forBrowser("chrome").build();
+export const driver = new Builder().forBrowser("chrome").build();
 
 export class BasePage {
 
@@ -49,6 +48,10 @@ export class BasePage {
 
     public scrollUp() {
         return driver.executeScript("window.scrollTo(0,-600)");
+    }
+
+    public closeBrowser() {
+        return driver.quit();
     }
 
 }
