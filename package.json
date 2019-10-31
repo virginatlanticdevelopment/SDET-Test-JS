@@ -13,7 +13,8 @@
   },
   "keywords": [
     "webdriverJS",
-    "cucumberJS"
+    "cucumberJS",
+    "typescript"
   ],
   "author": "Vijay Vedahcalam",
   "license": "ISC",
