@@ -1,0 +1,7 @@
+# Dependency directory
+node_modules
+built/**/*.map
+#VSCode files
+.vscode/*
+features/step_definitions/*.js
+features/pages/*.js
