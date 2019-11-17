@@ -95,7 +95,8 @@ When("I add a holiday to a hotlist", () => {
 
     SearchResultsPage.setGlobalData(searchCardTitle);
 
-    const { wishListButton } = HomeSearchPage;
+    const { wishListButton, wishListNavLink } = HomeSearchPage;
+    expect(wishListNavLink.getAttribute("class")).to.not.include("full-mode");
 
     wishListButton.click();
 
@@ -126,17 +127,18 @@ When("I proceed to hotel options page", () => {
 });
 
 Then("I can see that a holiday added to the hotlist on top of the page", () => {
+    const { wishListNavLink } = HomeSearchPage;
+    expect(wishListNavLink.getAttribute("class")).to.include("full-mode");
+
     HomeSearchPage.wishListNavLink.click();
 
     const { wishListPageHeader } = WishListPage;
-
     expect(wishListPageHeader.getText()).to.eq("Wishlist");
 
     WishListPage.wishResultsContainer.waitForDisplayed();
 
     const { wishListCardTitle } = WishListPage;
     const searchCardTitle = SearchResultsPage.getGlobalData();
-
     expect(wishListCardTitle.getText().toLowerCase()).to.eq(
         searchCardTitle.toLowerCase()
     );
